@@ -31,5 +31,5 @@ A 64-bit counter keeps track of the sha-256 current iteration, the 'cmp_16' comp
 ## Finite-state machine
 After the datapath definition, we must transform the high-level state machine to a finite-state machine. Each transform stage has been expanded into 4 states and the final fsm has 12 states. 
 
-1.(init) Load the first block hash into reg_init_0 and load the second block into m1 registers. 
-2.(init_d1) Start the first hash by reseting the counter (rst_w1 = 1) by setting the digest module(s_d1 = 0 and s_w1 = 0)
+1. (init) Load the first block hash into reg_init_0 and load the second block into m1 registers. 
+2. (init_d1) Start the first hash by reseting the counter (rst_w1 = 1) by setting the digest module(s_d1 = 0 and s_w1 = 0)
