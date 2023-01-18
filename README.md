@@ -32,10 +32,17 @@ A 64-bit counter keeps track of the sha-256 current iteration, the 'cmp_16' comp
 After the datapath definition, we must transform the high-level state machine to a finite-state machine. Each transform stage has been expanded into 4 states and the final fsm has 12 states. 
 
 State 1. Initiate variables
+
 State 2. Initiate first hash
+
 States 3 - 5. Perform first hash 
+
 State 6. Initiate second hash
+
 States 7 - 9. Perform second hash
+
 State 10. Compare hash with target 
+
 State 11. Update nonce
+
 State 12. Hash found
