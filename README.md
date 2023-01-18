@@ -46,3 +46,5 @@ State 10. Compare hash with target
 State 11. Update nonce
 
 State 12. Hash found
+
+<img src="./figures/fsm.png" style="width: 55vw; min-width: 330px; "/>
