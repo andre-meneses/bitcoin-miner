@@ -19,7 +19,7 @@ We made use the following steps:
 ## High level state machine
 We start by modeling the miner with a high-level state machine. The circuit receives as inputs the second block message(m1), the target and the hashed first block(m0). Two hash transforms are made, as required by the bitcoin protocol, and the resulting hash is compared with the target. In the case where hash < target, the transaction block was successufuly validated and we are done, otherwise the nonce is updated and another iteration is needed.  
 
-<img src="./figures/hlsm.png" width="100"/>
+<img src="./figures/hlsm.png" style="width: 55vw; min-width: 330px;"/>
 
 ## Datapath
 From the high-level state machine, it is possible to project an adequate datapath. The hash computations are performed by two 'digest' modules, whose inputs are controlled by multiplexers. Two sets of 16 32-bits registers store the 512 bits blocks and two sets of 8 32-bits registers(reg_init_0 and reg_init_1) store the initial hash variables. The registers 'Reg_hash' receive the hashed messages. 
