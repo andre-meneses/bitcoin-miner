@@ -26,7 +26,7 @@ From the high-level state machine, it is possible to project an adequate datapat
 
 A 64-bit counter keeps track of the sha-256 current iteration, the 'cmp_16' comparator is responsible for the scheduling process and the 'cmp_target' comparator validates the produced hash. An 32 bit adder is responsible for the nonce update and a ROM stores the constants required by the digest module. To better understand the proposed datapath, one must know how the sha-256 computation works. The 'digest' module's operaration has been abstracted.
 
-<img src="./figures/digest.png" width="100"/>
+<img src="./figures/digest.png" style="width: 55vw; min-width: 330px; "/>
 
 ## Finite-state machine
 After the datapath definition, we must transform the high-level state machine to a finite-state machine. Each transform stage has been expanded into 4 states and the final fsm has 12 states. 
