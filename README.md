@@ -60,3 +60,9 @@ Since there are 12 states, a 4 bit register was used as a state register.
 
 <img src="./figures/controlador.png" style="height: 30vw; min-height: 100px; "/>
 
+The controller was simulated in Quartus II software and the it works as expected. 
+
+## Conclusions and remarks
+The RTL design of a bitcoin miner proved to be demanding. The comprehension of the sha-256 function and its hardware implementation was particularly difficult. Furthermore, we were faced with some challenges regarding design choices: do we make it the easier way or the more efficient way? We have discovered that usually the easy solution is not the fastest one in terms of clock cycles. The datapath component is yet to be implemented and simulated. 
+
+The proposed design computes both hashes required by bitcoin validation in 129 clock cycles. Considering the typical clock frequency of a FPGA, our circuit could perform in the order of Megahashes/s, it would not be lucrative, but it would certainly be fun.   
