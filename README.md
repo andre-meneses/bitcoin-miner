@@ -53,12 +53,9 @@ State 12. Hash found
 
 From the finite-state machine we coded the states and we assembled a truth table. Then, a logical equation was extracted for each one of the 20 outputs and the combinational circuit of our controller was projected. 
 
-<img src="./figures/combinacional.png" style="height: 30vw; min-width: 100px; "/>
+<img src="./figures/combinacional.png" style="height: 55vw; min-width: 100px; "/>
 
 Since there are 12 states, a 4 bit register was used as a state register. 
 
 <img src="./figures/controlador.png" style="height: 30vw; min-height: 100px; "/>
 
-Each register was built around D latches. 
-
-<img src="./figures/reg.png" style="width: 30vw; min-width: 100px; "/>
