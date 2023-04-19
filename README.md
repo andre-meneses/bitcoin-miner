@@ -1,14 +1,14 @@
 # RTL Design for a bitcoin miner
 
 ## Introduction
-This project was developed as part of a digital circuits class, the goal was to provide a register-transfer level design for an application of our choice. Given the popularity of cryptocurrencies, it seemed to be an interesting challenge to design our own bitcoin miner. 
+This project was developed as part of a digital circuits class with the goal of designing a register-transfer level implementation for an application of our choice. Given the popularity of cryptocurrencies, we decided to design our own Bitcoin miner as an interesting and challenging project.
 ## Bitcoin
-The validation of bitcoin transactions is done by computational work. For a block to be validated, its header must be fed to a hash function(sha-256) and the result must be compared to a target value. If the comparison succeeds, a 4 byte part of the header called nonce is returned. Otherwise, the nonce is updated and a new attempt is made.   
+Bitcoin transactions are validated through computational work. To validate a block, its header must be hashed by a SHA-256 function and compared to a target value. If the comparison succeeds, a 4-byte portion of the header called the "nonce" is returned. If it fails, the nonce is updated and the process is repeated.  
 ## Design Considerations
-The first step was to decide what tasks the circuit should perform. In order to mine bitcoins, an 80 bytes(640 bits) block must be hashed by the sha-256 function, that works by processing 512 bits blocks at a time. Hence, two blocks must be hashed, the first block hash remains constant, while the second block hash changes after each nonce update.
-Thus, we decided that our circuit would only perform the hash of the second block, this allows for a simpler design while maintaining most of the computational work to be executed by the miner. 
+Our first step was to decide what tasks our circuit should perform. To mine Bitcoins, an 80-byte (640-bit) block must be hashed using the SHA-256 function, which processes 512-bit blocks at a time. Two blocks must be hashed, with the first block's hash remaining constant and the second block's hash changing after each nonce update. Therefore, we designed our circuit to only perform the hash of the second block, allowing for a simpler design while still performing most of the computational work required for mining.
 
-We made use the following steps:
+Our design process involved the following steps:
+
 1. Creation of a high-level state machine
 2. Definition of the datapath
 3. Creation of a finite-state machine
@@ -17,14 +17,16 @@ We made use the following steps:
 6. Controller simulation
 
 ## High level state machine
-We start by modeling the miner with a high-level state machine. The circuit receives as inputs the second block message(m1), the target and the hashed first block(m0). Two hash transforms are made, as required by the bitcoin protocol, and the resulting hash is compared with the target. In the case where hash < target, the transaction block was successufuly validated and we are done, otherwise the nonce is updated and another iteration is needed.  
+We began by modeling the miner with a high-level state machine. The circuit receives the second block message (m1), the target, and the hashed first block (m0) as inputs. Two hash transforms are performed, as required by the Bitcoin protocol, and the resulting hash is compared to the target. If the hash is less than the target, the transaction block is validated and the process is complete. Otherwise, the nonce is updated and another iteration is needed.  
 
 <img src="./figures/hlsm.png" style="width: 55vw; min-width: 330px;"/>
 
 ## Datapath
-From the high-level state machine, it is possible to project an adequate datapath. The hash computations are performed by two 'digest' modules, whose inputs are controlled by multiplexers. Two sets of 16 32-bits registers store the 512 bits blocks and two sets of 8 32-bits registers(reg_init_0 and reg_init_1) store the initial hash variables. The registers 'Reg_hash' receive the hashed messages. 
+The high-level state machine was used to design an appropriate datapath. The hash computations are performed by two 'digest' modules that receive inputs controlled by multiplexers. Two sets of 16 32-bit registers store the 512 bits blocks and two sets of 8 32-bit registers (reg_init_0 and reg_init_1) store the initial hash variables. The registers 'Reg_hash' store the hashed messages.
 
-A 64-bit counter keeps track of the sha-256 current iteration, the 'cmp_16' comparator is responsible for the scheduling process and the 'cmp_target' comparator validates the produced hash. An 32 bit adder is responsible for the nonce update and a ROM stores the constants required by the digest module. To better understand the proposed datapath, one must know how the sha-256 computation works. The 'digest' module's operation has been abstracted.
+To keep track of the sha-256 current iteration, a 64-bit counter is used. The scheduling process is handled by the 'cmp_16' comparator, while the 'cmp_target' comparator validates the produced hash. An adder with a 32-bit output is used for the nonce update. A ROM stores the constants required by the digest module.
+
+Understanding the proposed datapath requires knowledge of how the sha-256 computation works. The operation of the 'digest' module has been abstracted.
 
 <img src="./figures/digest.png" style="width: 55vw; min-width: 330px; "/>
 
@@ -51,7 +53,7 @@ State 12. Hash found
 
 ## Controller Design
 
-From the finite-state machine we coded the states and we assembled a truth table. Then, a logical equation was extracted for each one of the 20 outputs and the combinational circuit of our controller was projected. 
+After coding the finite-state machine, we proceeded to assemble a truth table based on the defined states. From this truth table, we extracted a logical equation for each one of the 20 outputs, and then projected the combinational circuit of our controller. This allowed us to create a detailed design for our controller, which would be responsible for managing the datapath and coordinating the various stages of the sha-256 computation.
 <p align='center'> 
 <img src="./figures/combinacional.png" style="height: 30vw; min-height: 100px; "/>
 </p>
